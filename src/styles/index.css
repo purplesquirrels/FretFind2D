@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply font-bold py-2 px-4 rounded;
+}
+
+.btn-active {
+  @apply bg-blue-500 text-white;
+}
+
+.btn-primary {
+  @apply bg-blue-500 text-white;
+}
+.btn-primary.btn-action {
+  @apply bg-blue-700 text-white;
+}
+
+.btn-blue:hover {
+  @apply bg-blue-700;
+}
+
+.grid-stack {
+  display: grid;
+  grid-auto-flow: row;
+  grid-gap: 10px;
+}
+
+.foundfrets {
+  border-collapse: collapse;
+}
+
+.foundfrets tr:nth-child(even) {
+  @apply bg-white;
+}
+.foundfrets tr:nth-child(odd) {
+  @apply bg-gray-200;
+}
+
+.foundfrets tr:first-child {
+  @apply bg-gray-500 font-bold;
+}
+.foundfrets td {
+  @apply p-2;
+}
+
+.foundfrets td:not(:first-child) {
+  border-left-width: 1px;
+  @apply border-solid border-white;
+}
+
+.foundfrets .table-section {
+  @apply bg-gray-500;
+}
