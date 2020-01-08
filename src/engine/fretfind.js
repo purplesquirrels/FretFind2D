@@ -33,7 +33,7 @@ var config = {
   bridgeWidth: 2.125,
   strings: 6,
   units: "in", // "mm" "cm"
-  tunings: [],
+  tunings: [0, 7, 3, 10, 5, 0, 7],
   scale: {
     type: "et", // "scala"
     root: 12, // for equal

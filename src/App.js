@@ -1,12 +1,18 @@
 import React, { useState } from "react";
-// import logo from "./logo.svg";
+
+import logo from "./images/help-24px.svg";
 // import "./App.css";
 import ff from "./engine/fretfind";
 import Fretboard from "./Fretboard";
 import Header from "./Header";
 import { NumberInput } from "./Inputs";
 import { ConfigGroup } from "./ConfigGroup";
-import { ButtonSelectItem, ButtonSelectGroup } from "./ButtonSelectGroup";
+import {
+  ButtonSelectItem,
+  HeaderButtonSelectItem,
+  ButtonSelectGroup
+} from "./ButtonSelectGroup";
+import Popover from "./Popover";
 
 function App() {
   const [config, setConfig] = useState(ff.getConfig());
@@ -19,23 +25,29 @@ function App() {
   return (
     <div className="App">
       <Header>
-        <button
-          onClick={e => setView("fretboard")}
-          className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-        >
-          Fretboard
-        </button>
-        <button
-          onClick={e => setView("data")}
-          className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
-        >
-          Data
-        </button>
+        <ButtonSelectGroup>
+          <HeaderButtonSelectItem
+            label={"Fretboard"}
+            name={"view"}
+            selected={view === "fretboard"}
+            onChange={() => {
+              setView("fretboard");
+            }}
+          />
+          <HeaderButtonSelectItem
+            label={"Data"}
+            name={"view"}
+            selected={view === "data"}
+            onChange={() => {
+              setView("data");
+            }}
+          />
+        </ButtonSelectGroup>
       </Header>
       <main className="flex">
         <div className="config bg-gray-100 p-2" style={{ maxWidth: "430px" }}>
           <form className="grid-stack">
-            <p className="text-sm">
+            <p className="text-sm hidden">
               FretFind is a fretboard design tool. This app will model the
               entire fretboard, strings and frets. It can design fretboards for
               instruments with multiple scale lengths and non-parallel frets as
@@ -95,7 +107,64 @@ function App() {
                 calculate. The number of frets must be an integer.
               </div>
             </div>
-            <ConfigGroup title="Scale length">
+            <ConfigGroup
+              title={
+                <>
+                  {"Scale length"}
+                  <Popover
+                    triggerElement={
+                      <button>
+                        <img src={logo} alt="Help" width={18} height={18} />
+                      </button>
+                    }
+                  >
+                    <div>
+                      <p>
+                        The scale length is the playing/speaking length of the
+                        string measured from the nut to the bridge. It is
+                        perhaps more properly twice the distance from the nut to
+                        the octave fret. The fundamental scale length is the
+                        length of a line drawn from the middle of the nut to the
+                        middle of the bridge. For single scale length
+                        instruments that line is the perpendicular bisector of
+                        both the nut and the bridge. I call this length
+                        "fundamental" because on a standard instrument with a
+                        narrow nut and a wide bridge the outer strings actually
+                        have a slightly longer scale length.
+                      </p>
+                      <p>
+                        The perpendicular fret distance is the ratio of
+                        distances along the first and last string that fall on a
+                        line perpendicular to the midline of the neck. This is
+                        used to control the angle of the nut, frets and bridge.
+                      </p>
+                      <p>
+                        Traditionally this property of non-parallel-ly fretted
+                        fretboards is measured by assigning a "perpendicular
+                        fret". "Perpendicular distance" avoids two problems with
+                        the "perpendicular fret" method. First, it is possible
+                        that no fret falls into this perpendicular position.
+                        With "perpendicular distance" we avoid fractional frets.
+                        Second, it is possible and even likely with non-equal
+                        temperament fretboards that as a fret crosses the
+                        fretboard it will fall at different ratios along the
+                        strings. With "perpendicular distance" we avoid complex
+                        calculations and have more predictable results.
+                      </p>
+                      <p>
+                        A value of 0 results in a perpendicular nut. A value of
+                        1 results in a perpendicular bridge. The default 0.5
+                        results in a perpendicular octave fret. To calculate an
+                        appropriate value for any fret, simply divide the
+                        distance of the fret from the nut by the total length of
+                        the string. In twelve tone equal temperament the values
+                        look like this:
+                      </p>
+                    </div>
+                  </Popover>
+                </>
+              }
+            >
               <ButtonSelectGroup>
                 <ButtonSelectItem
                   label={"Single"}
@@ -245,40 +314,46 @@ function App() {
                   </>
                 )}
               </div>
-              <div className="hidden">
-                The calculation method determines how FretFind calculates fret
-                placement. There are two input modes.
-                <dl>
-                  <dt>Equal:</dt>
-                  <dd>
-                    uses the X<sup>th</sup> root of two, a standard method for
-                    calculating equal temperaments. You enter the number of
-                    tones per octave.
-                  </dd>
-                  <dt>Scala:</dt>
-                  <dd>
-                    uses a Scala SCL file which allows you to specify each scale
-                    step exactly in either ratios or cents. If you are
-                    interested in creating your own scale, please read this
-                    description of the
-                    <a href="http://www.huygens-fokker.org/scala/scl_format.html">
-                      Scala scale file format
-                    </a>
-                    . Otherwise try a scale from the Scala scale archive, found
-                    at the very bottom of the
-                    <a href="http://www.huygens-fokker.org/scala/downloads.html">
-                      Scala download page
-                    </a>
-                    . You can learn more about Scala at the
-                    <a href="http://www.huygens-fokker.org/scala/">
-                      Scala home page
-                    </a>
-                    .
-                  </dd>
-                </dl>
-              </div>
             </ConfigGroup>
-            <ConfigGroup title="String width">
+            <ConfigGroup
+              title={
+                <>
+                  {"String width"}
+                  <Popover
+                    triggerElement={
+                      <button>
+                        <img src={logo} alt="Help" width={18} height={18} />
+                      </button>
+                    }
+                  >
+                    <div>
+                      <p>
+                        The string width at the nut is the distance along the
+                        nut from the center of the first string to the center of
+                        the last string. I'm using delta x distance (distance
+                        measured along a line drawn perpendicular to the neck's
+                        midline) because I think that is what you would feel as
+                        the width if you were playing an instrument with
+                        multiple scale lengths. It also makes the calculation
+                        easier. (Please note, FretFind will space the remaining
+                        strings equally between these two points.)
+                      </p>
+                      <p>
+                        The string width at the bridge is the distance along the
+                        bridge from the center of the first string to the center
+                        of the last string. I'm using delta x distance (distance
+                        measured along a line drawn perpendicular to the neck's
+                        midline) because I think that is what you would feel as
+                        the width if you were playing an instrument with
+                        multiple scale lengths. It also makes the calculation
+                        easier. (Please note, FretFind will space the remaining
+                        strings equally between these two points.)
+                      </p>
+                    </div>
+                  </Popover>
+                </>
+              }
+            >
               <div>
                 <NumberInput
                   id="nutWidth"
@@ -300,7 +375,59 @@ function App() {
                 />
               </div>
             </ConfigGroup>
-            <ConfigGroup title="Fretboard overhang">
+            <ConfigGroup
+              title={
+                <>
+                  {"Fretboard overhang"}
+                  <Popover
+                    triggerElement={
+                      <button>
+                        <img src={logo} alt="Help" width={18} height={18} />
+                      </button>
+                    }
+                  >
+                    <div>
+                      <p>
+                        The fretboard overhang is the distance from the center
+                        of outer strings to edge of nut or bridge. For
+                        fretboards with multiple scale lengths this is
+                        calculated as delta x distance, distance measured along
+                        a line drawn perpendicular to the neck's midline. There
+                        are four input modes for overhang.
+                      </p>
+                      <dl>
+                        <dt>Equal:</dt>
+                        <dd>
+                          you enter a single value and the overhang will be
+                          constant.
+                        </dd>
+                        <dt>Nut &amp; Bridge:</dt>
+                        <dd>
+                          allows you to specify one overhang at the nut and
+                          another overhang at the bridge.
+                        </dd>
+                        <dt>First &amp; Last:</dt>
+                        <dd>
+                          allows you to specify one overhang for the first
+                          string and another for the last string.
+                        </dd>
+                        <dt>All:</dt>
+                        <dd>
+                          you specify an overhang for all four locations
+                          separately.
+                        </dd>
+                      </dl>
+                      <p>
+                        (Please note, in FretFind the first string is shown on
+                        the far right where the high E string would be on a
+                        typical right-handed guitar. The last string is on the
+                        far left, where the low E would be found.)
+                      </p>
+                    </div>
+                  </Popover>
+                </>
+              }
+            >
               <ButtonSelectGroup>
                 <ButtonSelectItem
                   label={"Equal"}
@@ -496,7 +623,53 @@ function App() {
                 )}
               </div>
             </ConfigGroup>
-            <ConfigGroup title="Scale Calculation method">
+            <ConfigGroup
+              title={
+                <>
+                  {"Scale Calculation method"}
+                  <Popover
+                    triggerElement={
+                      <button>
+                        <img src={logo} alt="Help" width={18} height={18} />
+                      </button>
+                    }
+                  >
+                    <div>
+                      The calculation method determines how FretFind calculates
+                      fret placement. There are two input modes.
+                      <dl>
+                        <dt>Equal:</dt>
+                        <dd>
+                          uses the X<sup>th</sup> root of two, a standard method
+                          for calculating equal temperaments. You enter the
+                          number of tones per octave.
+                        </dd>
+                        <dt>Scala:</dt>
+                        <dd>
+                          uses a Scala SCL file which allows you to specify each
+                          scale step exactly in either ratios or cents. If you
+                          are interested in creating your own scale, please read
+                          this description of the
+                          <a href="http://www.huygens-fokker.org/scala/scl_format.html">
+                            Scala scale file format
+                          </a>
+                          . Otherwise try a scale from the Scala scale archive,
+                          found at the very bottom of the
+                          <a href="http://www.huygens-fokker.org/scala/downloads.html">
+                            Scala download page
+                          </a>
+                          . You can learn more about Scala at the
+                          <a href="http://www.huygens-fokker.org/scala/">
+                            Scala home page
+                          </a>
+                          .
+                        </dd>
+                      </dl>
+                    </div>
+                  </Popover>
+                </>
+              }
+            >
               <ButtonSelectGroup>
                 <ButtonSelectItem
                   label={"Standard"}
@@ -550,39 +723,78 @@ function App() {
                   ></textarea>
                 )}
               </div>
-              <div className="hidden">
-                The calculation method determines how FretFind calculates fret
-                placement. There are two input modes.
-                <dl>
-                  <dt>Equal:</dt>
-                  <dd>
-                    uses the X<sup>th</sup> root of two, a standard method for
-                    calculating equal temperaments. You enter the number of
-                    tones per octave.
-                  </dd>
-                  <dt>Scala:</dt>
-                  <dd>
-                    uses a Scala SCL file which allows you to specify each scale
-                    step exactly in either ratios or cents. If you are
-                    interested in creating your own scale, please read this
-                    description of the
-                    <a href="http://www.huygens-fokker.org/scala/scl_format.html">
-                      Scala scale file format
-                    </a>
-                    . Otherwise try a scale from the Scala scale archive, found
-                    at the very bottom of the
-                    <a href="http://www.huygens-fokker.org/scala/downloads.html">
-                      Scala download page
-                    </a>
-                    . You can learn more about Scala at the
-                    <a href="http://www.huygens-fokker.org/scala/">
-                      Scala home page
-                    </a>
-                    .
-                  </dd>
-                </dl>
-              </div>
             </ConfigGroup>
+            {config.scale.type === "scala" && (
+              <ConfigGroup
+                title={
+                  <>
+                    {"Tuning"}
+                    <Popover
+                      triggerElement={
+                        <button>
+                          <img src={logo} alt="Help" width={18} height={18} />
+                        </button>
+                      }
+                    >
+                      <div>
+                        <p>
+                          Enter the scale step (of the scale defined above) to
+                          which each string will be tuned. For example a
+                          standard guitar in the key of E would be tuned 0, 7,
+                          3, 10, 5, 0. The first string is the string to the far
+                          right on the fretboard. This step is not important for
+                          the Equal calculation method. Entering a tuning for
+                          the Scala calculation method will very likely result
+                          in partial frets.
+                        </p>
+                      </div>
+                    </Popover>
+                  </>
+                }
+              >
+                <div>
+                  {config.tunings
+                    .slice(0, Math.min(config.strings, config.tunings.length))
+                    .map((tun, index) => {
+                      return (
+                        <NumberInput
+                          key={"tunings-" + index}
+                          id={"tunings-" + index}
+                          label={
+                            "String " +
+                            (index + 1) +
+                            (index === 0 ? " (Treble)" : "")
+                          }
+                          value={tun}
+                          onChange={value => {
+                            let tunings = [...config.tunings];
+                            tunings[index] = value;
+                            updateConfig("tunings", tunings);
+                          }}
+                        />
+                      );
+                    })}
+                  {/* <NumberInput
+                  id="nutWidth"
+                  label={"Width at nut"}
+                  step={0.001}
+                  value={config.nutWidth}
+                  onChange={value => {
+                    updateConfig("nutWidth", value);
+                  }}
+                />
+                <NumberInput
+                  id="bridgeWidth"
+                  label={"Width at bridge"}
+                  step={0.001}
+                  value={config.bridgeWidth}
+                  onChange={value => {
+                    updateConfig("bridgeWidth", value);
+                  }}
+                /> */}
+                </div>
+              </ConfigGroup>
+            )}
           </form>
         </div>
         <div className="flex-grow flex justify-center p-6">

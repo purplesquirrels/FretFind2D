@@ -7,18 +7,18 @@
 }
 
 .btn-active {
-  @apply bg-blue-500 text-white;
+  @apply bg-indigo-700 text-white;
 }
 
 .btn-primary {
-  @apply bg-blue-500 text-white;
+  @apply bg-indigo-700 text-white;
 }
 .btn-primary.btn-action {
-  @apply bg-blue-700 text-white;
+  @apply bg-indigo-800 text-white;
 }
 
 .btn-blue:hover {
-  @apply bg-blue-700;
+  @apply bg-indigo-800;
 }
 
 .grid-stack {

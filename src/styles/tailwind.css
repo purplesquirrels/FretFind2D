@@ -11397,22 +11397,22 @@ video {
 }
 
 .btn-active {
-  background-color: #4299e1;
+  background-color: #4c51bf;
   color: #fff;
 }
 
 .btn-primary {
-  background-color: #4299e1;
+  background-color: #4c51bf;
   color: #fff;
 }
 
 .btn-primary.btn-action {
-  background-color: #2b6cb0;
+  background-color: #434190;
   color: #fff;
 }
 
 .btn-blue:hover {
-  background-color: #2b6cb0;
+  background-color: #434190;
 }
 
 .grid-stack {

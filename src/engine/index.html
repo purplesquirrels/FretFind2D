@@ -75,112 +75,106 @@
       };
 
       $(document).ready(function() {
-        $("#numStrings").change(function() {
-          ff.setConfig("tunings", []);
-          ff.setConfig("scaleLengths", []);
-        });
-        $("#worksheet")
-          .find("input, textarea")
-          .change(onChange);
-        ff.setConfig("tunings", []);
-        ff.setConfig("scaleLengths", []);
-        paper = Raphael("diagram", 200, 800);
+        // $("#numStrings").change(function() {
+        //   ff.setConfig("tunings", []);
+        //   ff.setConfig("scaleLengths", []);
+        // });
+        // $("#worksheet")
+        //   .find("input, textarea")
+        //   .change(onChange);
+        // ff.setConfig("tunings", []);
+        // ff.setConfig("scaleLengths", []);
+        // paper = Raphael("diagram", 200, 800);
         updateFormFromHash();
-        processChanges = true;
-        onChange();
+        // processChanges = true;
+        // onChange();
 
-        var isFileSaverSupported = false;
-        try {
-          isFileSaverSupported = !!new Blob();
-        } catch (e) {}
+        // var isFileSaverSupported = false;
+        // try {
+        //   isFileSaverSupported = !!new Blob();
+        // } catch (e) {}
 
         var dl = $("#downloads");
         if (isFileSaverSupported) {
-          dl.append(
-            '<dt>DXF</dt><dd><button id="download_dxf">Download</button></dd>'
-          );
-          $("#download_dxf").click(function() {
-            var guitar = getGuitar();
-            guitar = ff.fretGuitar(guitar);
-            var blob = new Blob([ff.getDXF(guitar)], { type: "image/vnd.dxf" });
-            saveAs(blob, "fretboard.dxf");
-          });
-
-          dl.append(
-            "<dt>PDF (multi-page)</dt>" +
-              "<dd>" +
-              '<label><input type="radio" name="pdfm_pagesize" value="letter" checked="checked"/>letter</label>' +
-              '<label><input type="radio" name="pdfm_pagesize" value="a4" />A4</label>' +
-              "</dd>" +
-              '<dd><button id="download_pdfm">Download</button></dd>'
-          );
-          $("#download_pdfm").click(function() {
-            var guitar = getGuitar();
-            var pagesize = $("input:checked[name='pdfm_pagesize']").val();
-            guitar = ff.fretGuitar(guitar);
-            var blob = new Blob([ff.getPDFMultipage(guitar, pagesize)], {
-              type: "application/pdf"
-            });
-            saveAs(blob, "fretboard.pdf");
-          });
-
-          dl.append(
-            '<dt>PDF (single page)</dt><dd><button id="download_pdf">Download</button></dd>'
-          );
-          $("#download_pdf").click(function() {
-            var guitar = getGuitar();
-            guitar = ff.fretGuitar(guitar);
-            var blob = new Blob([ff.getPDF(guitar)], {
-              type: "application/pdf"
-            });
-            saveAs(blob, "fretboard.pdf");
-          });
-
-          dl.append(
-            '<dt>SVG</dt><dd><button id="download_svg">Download</button></dd>'
-          );
-          $("#download_svg").click(function() {
-            var guitar = getGuitar();
-            guitar = ff.fretGuitar(guitar);
-            var blob = new Blob([ff.getSVG(guitar)], { type: "image/svg+xml" });
-            saveAs(blob, "fretboard.svg");
-          });
-
-          dl.append(
-            '<dt>CSV</dt><dd><button id="download_csv">Download</button></dd>'
-          );
-          $("#download_csv").click(function() {
-            var guitar = getGuitar();
-            guitar = ff.fretGuitar(guitar);
-            var blob = new Blob([ff.getCSV(guitar)], { type: "text/csv" });
-            saveAs(blob, "fretboard.csv");
-          });
-
-          dl.append(
-            '<dt>HTML</dt><dd><button id="download_html">Download</button></dd>'
-          );
-          $("#download_html").click(function() {
-            var guitar = getGuitar();
-            guitar = ff.fretGuitar(guitar);
-            var blob = new Blob([ff.getHTML(guitar)], { type: "text/html" });
-            saveAs(blob, "fretboard.html");
-          });
-
-          dl.append(
-            '<dt>TAB</dt><dd><button id="download_tab">Download</button></dd>'
-          );
-          $("#download_tab").click(function() {
-            var guitar = getGuitar();
-            guitar = ff.fretGuitar(guitar);
-            var blob = new Blob([ff.getTAB(guitar)], {
-              type: "text/tab-separated-values"
-            });
-            saveAs(blob, "fretboard.tab");
-          });
+          // dl.append(
+          //   '<dt>DXF</dt><dd><button id="download_dxf">Download</button></dd>'
+          // );
+          // $("#download_dxf").click(function() {
+          //   var guitar = getGuitar();
+          //   guitar = ff.fretGuitar(guitar);
+          //   var blob = new Blob([ff.getDXF(guitar)], { type: "image/vnd.dxf" });
+          // saveAs(blob, "fretboard.dxf");
+          // });
+          // dl.append(
+          //   "<dt>PDF (multi-page)</dt>" +
+          //     "<dd>" +
+          //     '<label><input type="radio" name="pdfm_pagesize" value="letter" checked="checked"/>letter</label>' +
+          //     '<label><input type="radio" name="pdfm_pagesize" value="a4" />A4</label>' +
+          //     "</dd>" +
+          //     '<dd><button id="download_pdfm">Download</button></dd>'
+          // );
+          // $("#download_pdfm").click(function() {
+          //   var guitar = getGuitar();
+          //   var pagesize = $("input:checked[name='pdfm_pagesize']").val();
+          //   guitar = ff.fretGuitar(guitar);
+          //   var blob = new Blob([ff.getPDFMultipage(guitar, pagesize)], {
+          //     type: "application/pdf"
+          //   });
+          //   saveAs(blob, "fretboard.pdf");
+          // });
+          // dl.append(
+          //   '<dt>PDF (single page)</dt><dd><button id="download_pdf">Download</button></dd>'
+          // );
+          // $("#download_pdf").click(function() {
+          //   var guitar = getGuitar();
+          //   guitar = ff.fretGuitar(guitar);
+          //   var blob = new Blob([ff.getPDF(guitar)], {
+          //     type: "application/pdf"
+          //   });
+          //   saveAs(blob, "fretboard.pdf");
+          // });
+          // dl.append(
+          //   '<dt>SVG</dt><dd><button id="download_svg">Download</button></dd>'
+          // );
+          // $("#download_svg").click(function() {
+          //   var guitar = getGuitar();
+          //   guitar = ff.fretGuitar(guitar);
+          //   var blob = new Blob([ff.getSVG(guitar)], { type: "image/svg+xml" });
+          //   saveAs(blob, "fretboard.svg");
+          // });
+          // dl.append(
+          //   '<dt>CSV</dt><dd><button id="download_csv">Download</button></dd>'
+          // );
+          // $("#download_csv").click(function() {
+          //   var guitar = getGuitar();
+          //   guitar = ff.fretGuitar(guitar);
+          //   var blob = new Blob([ff.getCSV(guitar)], { type: "text/csv" });
+          //   saveAs(blob, "fretboard.csv");
+          // });
+          // dl.append(
+          //   '<dt>HTML</dt><dd><button id="download_html">Download</button></dd>'
+          // );
+          // $("#download_html").click(function() {
+          //   var guitar = getGuitar();
+          //   guitar = ff.fretGuitar(guitar);
+          //   var blob = new Blob([ff.getHTML(guitar)], { type: "text/html" });
+          //   saveAs(blob, "fretboard.html");
+          // });
+          // dl.append(
+          //   '<dt>TAB</dt><dd><button id="download_tab">Download</button></dd>'
+          // );
+          // $("#download_tab").click(function() {
+          //   var guitar = getGuitar();
+          //   guitar = ff.fretGuitar(guitar);
+          //   var blob = new Blob([ff.getTAB(guitar)], {
+          //     type: "text/tab-separated-values"
+          //   });
+          //   saveAs(blob, "fretboard.tab");
+          // });
         } else {
-          dl.append(
-            '<dd><b>Buttons missing?<br/>Downloads require a modern browser that supports <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob/Blob#Browser_compatibility">the Blob constructor API</a>.</b></dd>'
-          );
+          // dl.append(
+          //   '<dd><b>Buttons missing?<br/>Downloads require a modern browser that supports <a href="https://developer.mozilla.org/en-US/docs/Web/API/Blob/Blob#Browser_compatibility">the Blob constructor API</a>.</b></dd>'
+          // );
         }
       });
     </script>
@@ -557,7 +551,7 @@ Fret  P.D.    Fret  P.D.
           strings be sure to update the tuning section below (only useful with
           non-equal temperament scales).
         </dd> -->
-        <dt>tuning</dt>
+        <!-- <dt>tuning</dt>
         <dd id="tuning"></dd>
         <dd class="help">
           Enter the scale step (of the scale defined above) to which each string
@@ -566,7 +560,7 @@ Fret  P.D.    Fret  P.D.
           right on the fretboard. This step is not important for the Equal
           calculation method. Entering a tuning for the Scala calculation method
           will very likely result in partial frets.
-        </dd>
+        </dd> -->
       </dl>
       <!-- worksheet -->
       <div id="diagram"></div>
