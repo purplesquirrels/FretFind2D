@@ -16,7 +16,7 @@ export default function Popover({
     <RTP
       isOpen={isOpen}
       position={position} // preferred position
-      containerStyle={{ overflow: "visible" }}
+      containerStyle={{ overflow: "visible", zIndex: 100 }}
       onClickOutside={e => setIsOpen(false)}
       transitionDuration={0.15}
       content={({ position, targetRect, popoverRect }) => (
