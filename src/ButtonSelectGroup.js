@@ -36,7 +36,9 @@ export function ButtonSelectItem({
   onChange,
   className = ""
 }) {
-  let classes = className + " py-1 px-3 w-full text-center";
+  let classes =
+    className +
+    " py-1 px-3 w-full text-center flex items-center justify-center";
 
   if (selected) {
     classes += " bg-red-600 hover:bg-red-500 text-white";

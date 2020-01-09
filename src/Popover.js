@@ -4,7 +4,8 @@ import RTP, { ArrowContainer } from "react-tiny-popover";
 export default function Popover({
   triggerElement,
   position = "right",
-  children = null
+  children = null,
+  noPadding = false
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,7 +41,10 @@ export default function Popover({
           }}
         >
           <div
-            className="p-4 bg-gray-800 text-gray-500 text-sm rounded shadow-2xl "
+            className={
+              "bg-gray-800 text-gray-500 text-sm rounded shadow-2xl" +
+              (noPadding ? "" : " p-4")
+            }
             style={{ maxWidth: "400px" }}
           >
             {children}

@@ -14,7 +14,7 @@ export function Button({ children, onClick, className = "" }) {
   );
 }
 
-export function PrimaryButton({ children, onClick, ...props }) {
+export function PrimaryButton({ children, ...props }) {
   return (
     <Button className="btn-primary" {...props}>
       {children}
@@ -61,7 +61,7 @@ export function NumberInput({
 
 export function TextInput({ onChange, value, id, label }) {
   return (
-    <div className="md:flex md:items-center mb-6">
+    <div className="md:flex md:items-center">
       <div className="md:w-1/3">
         <label
           className="block text-gray-100 md:text-left mb-1 md:mb-0 pr-4"

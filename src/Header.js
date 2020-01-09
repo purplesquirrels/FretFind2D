@@ -4,7 +4,7 @@ import SaveUI from "./SaveUI";
 
 export default function Header({ children }) {
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-white fixed inset-x-0 top-0 z-10 border-b border-gray-300">
+    <nav className="flex items-center justify-between flex-wrap bg-white fixed inset-x-0 top-0 z-10 ">
       <div className="flex items-center flex-shrink-0  p-4 self-stretch">
         <svg
           className="mr-2"
@@ -68,6 +68,7 @@ export default function Header({ children }) {
       <div className="p-4">
         <Popover
           position={"bottom"}
+          noPadding={true}
           triggerElement={
             <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-red-600 border-red-600 hover:border-transparent hover:text-white hover:bg-red-600 mt-4 lg:mt-0">
               Save

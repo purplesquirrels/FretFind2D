@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { saveAs } from "file-saver";
 import ff from "./engine/fretfind";
 import { PrimaryButton, TextInput } from "./Inputs";
+import { ConfigGroup } from "./ConfigGroup";
 
 let isFileSaverSupported = false;
 try {
@@ -57,7 +58,7 @@ function downloadTAB(name = "fretboard") {
   var blob = new Blob([ff.getTAB(guitar)], {
     type: "text/tab-separated-values"
   });
-  saveAs(blob, `${name}.tab`);
+  saveAs(blob, `${name}.tsv`);
 }
 
 export default function SaveUI(props) {
@@ -66,62 +67,54 @@ export default function SaveUI(props) {
   if (isFileSaverSupported) {
     return (
       <>
-        <TextInput
-          value={name}
-          onChange={v => setname(v)}
-          label={"File name"}
-        />
-        <ul>
-          <li className="border-b border-gray-900 border-solid py-2">
-            <PrimaryButton onClick={e => downloadDXF(name)}>DXF</PrimaryButton>
-          </li>
-          <li className="border-b border-gray-900 border-solid py-2">
-            <PrimaryButton onClick={e => downloadPDFM(name, pdfsize)}>
-              PDF (Multi-page)
-            </PrimaryButton>
-            <div>
-              <label>
-                <input
-                  type="radio"
-                  name="pdfm_pagesize"
-                  value="a4"
-                  onChange={e => setpdfsize("a4")}
-                  checked={pdfsize === "a4"}
-                />
-                A4
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="pdfm_pagesize"
-                  value="letter"
-                  onChange={e => setpdfsize("letter")}
-                  checked={pdfsize === "letter"}
-                />
-                Letter
-              </label>
-            </div>
-          </li>
-          <li className="border-b border-gray-900 border-solid py-2">
-            <PrimaryButton onClick={e => downloadPDFS(name)}>
-              PDF (Single-page)
-            </PrimaryButton>
-          </li>
-          <li className="border-b border-gray-900 border-solid py-2">
-            <PrimaryButton onClick={e => downloadSVG(name)}>SVG</PrimaryButton>
-          </li>
-          <li className="border-b border-gray-900 border-solid py-2">
-            <PrimaryButton onClick={e => downloadHTML(name)}>
-              HTML
-            </PrimaryButton>
-          </li>
-          <li className="border-b border-gray-900 border-solid py-2">
-            <PrimaryButton onClick={e => downloadCSV(name)}>CSV</PrimaryButton>
-          </li>
-          <li className="py-2">
-            <PrimaryButton onClick={e => downloadTAB(name)}>TSV</PrimaryButton>
-          </li>
-        </ul>
+        <ConfigGroup divider={false}>
+          <TextInput
+            value={name}
+            onChange={v => setname(v)}
+            label={"File name"}
+            margin={false}
+          />
+        </ConfigGroup>
+
+        <p className="px-4 pb-4">Choose a format below to download.</p>
+
+        <ConfigGroup title={"Template drawing"}>
+          <PrimaryButton onClick={e => downloadDXF(name)}>DXF</PrimaryButton>
+          <PrimaryButton onClick={e => downloadSVG(name)}>SVG</PrimaryButton>
+          <PrimaryButton onClick={e => downloadPDFS(name)}>
+            PDF (Single-page)
+          </PrimaryButton>
+          <PrimaryButton onClick={e => downloadPDFM(name, pdfsize)}>
+            PDF (Multi-page)
+          </PrimaryButton>
+          <div>
+            <label>
+              <input
+                type="radio"
+                name="pdfm_pagesize"
+                value="a4"
+                onChange={e => setpdfsize("a4")}
+                checked={pdfsize === "a4"}
+              />
+              A4
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="pdfm_pagesize"
+                value="letter"
+                onChange={e => setpdfsize("letter")}
+                checked={pdfsize === "letter"}
+              />
+              Letter
+            </label>
+          </div>
+        </ConfigGroup>
+        <ConfigGroup title={"Data tables"}>
+          <PrimaryButton onClick={e => downloadHTML(name)}>HTML</PrimaryButton>
+          <PrimaryButton onClick={e => downloadCSV(name)}>CSV</PrimaryButton>
+          <PrimaryButton onClick={e => downloadTAB(name)}>TSV</PrimaryButton>
+        </ConfigGroup>
       </>
     );
   }
