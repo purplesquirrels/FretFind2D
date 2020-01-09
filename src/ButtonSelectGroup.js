@@ -10,9 +10,9 @@ export function HeaderButtonSelectItem({
   let classes = className + " py-1 px-3";
 
   if (selected) {
-    classes += " text-indigo-700 bg-white  text-white";
+    classes += " text-white bg-red-600";
   } else {
-    classes += " text-white border-white border";
+    classes += " text-red-600 border-red-600 border";
   }
 
   return (
@@ -36,12 +36,12 @@ export function ButtonSelectItem({
   onChange,
   className = ""
 }) {
-  let classes = className + " py-1 px-3";
+  let classes = className + " py-1 px-3 w-full text-center";
 
   if (selected) {
-    classes += " bg-indigo-700 hover:bg-indigo-800 text-white";
+    classes += " bg-red-600 hover:bg-red-500 text-white";
   } else {
-    classes += " bg-gray-300 hover:bg-gray-400 text-gray-800";
+    classes += " bg-gray-700 hover:bg-gray-600 text-gray-100";
   }
 
   return (
@@ -58,9 +58,9 @@ export function ButtonSelectItem({
   );
 }
 
-export function ButtonSelectGroup({ children }) {
+export function ButtonSelectGroup({ children, margin = true }) {
   return (
-    <div className="inline-flex">
+    <div className={"flex  justify-stretch" + (margin ? " mb-4" : "")}>
       {React.Children.map(children, (child, index) => {
         let className = child.props.className || "";
         if (index === 0) className += "rounded-l";

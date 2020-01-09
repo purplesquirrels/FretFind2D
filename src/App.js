@@ -23,9 +23,9 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App text-gray-200" style={{ paddingTop: "64px" }}>
       <Header>
-        <ButtonSelectGroup>
+        <ButtonSelectGroup margin={false}>
           <HeaderButtonSelectItem
             label={"Fretboard"}
             name={"view"}
@@ -44,9 +44,23 @@ function App() {
           />
         </ButtonSelectGroup>
       </Header>
-      <main className="flex">
-        <div className="config bg-gray-100 p-2" style={{ maxWidth: "430px" }}>
-          <form className="grid-stack">
+      <main className="flex bg-gray-200">
+        <div className="flex-grow flex justify-center p-6">
+          {view === "fretboard" && <Fretboard />}
+          {view === "data" && (
+            <div
+              className="text-gray-800"
+              dangerouslySetInnerHTML={{
+                __html: ff.getTable(ff.fretGuitar(ff.getGuitar()))
+              }}
+            ></div>
+          )}
+        </div>
+        <div
+          className="config p-4"
+          style={{ minWidth: "430px", width: "430px" }}
+        >
+          <form className="bg-gray-800 rounded">
             <p className="text-sm hidden">
               FretFind is a fretboard design tool. This app will model the
               entire fretboard, strings and frets. It can design fretboards for
@@ -54,7 +68,7 @@ function App() {
               well as fretboards for instruments that play just or meantone
               scales.
             </p>
-            <div>
+            <ConfigGroup divider={false}>
               Units
               <br />
               <ButtonSelectGroup>
@@ -77,36 +91,38 @@ function App() {
                   onChange={e => updateConfig("units", "cm")}
                 /> */}
               </ButtonSelectGroup>
-            </div>
-            <div>
-              <NumberInput
-                id="numStrings"
-                label={"Number of strings"}
-                value={config.strings}
-                onChange={value => {
-                  updateConfig("strings", value);
-                }}
-              />
-              <div className="hidden">
-                The number of strings must be an integer. If you change the
-                number of strings be sure to update the tuning section below
-                (only useful with non-equal temperament scales).
+            </ConfigGroup>
+            <ConfigGroup>
+              <div>
+                <NumberInput
+                  id="numStrings"
+                  label={"Number of strings"}
+                  value={config.strings}
+                  onChange={value => {
+                    updateConfig("strings", value);
+                  }}
+                />
+                <div className="hidden">
+                  The number of strings must be an integer. If you change the
+                  number of strings be sure to update the tuning section below
+                  (only useful with non-equal temperament scales).
+                </div>
               </div>
-            </div>
-            <div>
-              <NumberInput
-                id="numFrets"
-                label={"Number of frets"}
-                value={config.numFrets}
-                onChange={value => {
-                  updateConfig("numFrets", value);
-                }}
-              />
-              <div className="hidden">
-                This is the number of frets you would like FretFind to
-                calculate. The number of frets must be an integer.
+              <div>
+                <NumberInput
+                  id="numFrets"
+                  label={"Number of frets"}
+                  value={config.numFrets}
+                  onChange={value => {
+                    updateConfig("numFrets", value);
+                  }}
+                />
+                <div className="hidden">
+                  This is the number of frets you would like FretFind to
+                  calculate. The number of frets must be an integer.
+                </div>
               </div>
-            </div>
+            </ConfigGroup>
             <ConfigGroup
               title={
                 <>
@@ -452,7 +468,7 @@ function App() {
                   }
                 />
                 <ButtonSelectItem
-                  label={"Treble / Bass"}
+                  label={"First / Last"}
                   name={"overhang"}
                   selected={config.overhang.type === "firstlast"}
                   onChange={e =>
@@ -524,7 +540,7 @@ function App() {
                   <>
                     <NumberInput
                       id="oF"
-                      label={"Treble"}
+                      label={"First"}
                       step={0.00001}
                       value={config.overhang.oF}
                       onChange={value => {
@@ -536,7 +552,7 @@ function App() {
                     />
                     <NumberInput
                       id="oL"
-                      label={"Bass"}
+                      label={"Last"}
                       step={0.00001}
                       value={config.overhang.oL}
                       onChange={value => {
@@ -553,8 +569,8 @@ function App() {
                     <tbody>
                       <tr>
                         <td></td>
-                        <td>Bass</td>
-                        <td>Treble</td>
+                        <td>Last</td>
+                        <td>First</td>
                       </tr>
                       <tr>
                         <td>Nut</td>
@@ -796,16 +812,6 @@ function App() {
               </ConfigGroup>
             )}
           </form>
-        </div>
-        <div className="flex-grow flex justify-center p-6">
-          {view === "fretboard" && <Fretboard />}
-          {view === "data" && (
-            <div
-              dangerouslySetInnerHTML={{
-                __html: ff.getTable(ff.fretGuitar(ff.getGuitar()))
-              }}
-            ></div>
-          )}
         </div>
       </main>
     </div>

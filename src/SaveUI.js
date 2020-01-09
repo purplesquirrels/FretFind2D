@@ -72,10 +72,10 @@ export default function SaveUI(props) {
           label={"File name"}
         />
         <ul>
-          <li className="border-b border-gray-200 border-solid">
+          <li className="border-b border-gray-900 border-solid py-2">
             <PrimaryButton onClick={e => downloadDXF(name)}>DXF</PrimaryButton>
           </li>
-          <li className="border-b border-gray-200 border-solid">
+          <li className="border-b border-gray-900 border-solid py-2">
             <PrimaryButton onClick={e => downloadPDFM(name, pdfsize)}>
               PDF (Multi-page)
             </PrimaryButton>
@@ -102,23 +102,23 @@ export default function SaveUI(props) {
               </label>
             </div>
           </li>
-          <li className="border-b border-gray-200 border-solid">
+          <li className="border-b border-gray-900 border-solid py-2">
             <PrimaryButton onClick={e => downloadPDFS(name)}>
               PDF (Single-page)
             </PrimaryButton>
           </li>
-          <li className="border-b border-gray-200 border-solid">
+          <li className="border-b border-gray-900 border-solid py-2">
             <PrimaryButton onClick={e => downloadSVG(name)}>SVG</PrimaryButton>
           </li>
-          <li className="border-b border-gray-200 border-solid">
+          <li className="border-b border-gray-900 border-solid py-2">
             <PrimaryButton onClick={e => downloadHTML(name)}>
               HTML
             </PrimaryButton>
           </li>
-          <li className="border-b border-gray-200 border-solid">
+          <li className="border-b border-gray-900 border-solid py-2">
             <PrimaryButton onClick={e => downloadCSV(name)}>CSV</PrimaryButton>
           </li>
-          <li>
+          <li className="py-2">
             <PrimaryButton onClick={e => downloadTAB(name)}>TSV</PrimaryButton>
           </li>
         </ul>

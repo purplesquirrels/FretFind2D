@@ -24,7 +24,7 @@ export default function Popover({
           position={position}
           targetRect={targetRect}
           popoverRect={popoverRect}
-          arrowColor={"white"}
+          arrowColor={"#2d3748"}
           arrowSize={10}
           arrowStyle={{
             transform:
@@ -40,7 +40,7 @@ export default function Popover({
           }}
         >
           <div
-            className="p-4 bg-white text-sm rounded shadow-xl border border-gray-200"
+            className="p-4 bg-gray-800 text-gray-500 text-sm rounded shadow-2xl "
             style={{ maxWidth: "400px" }}
           >
             {children}
