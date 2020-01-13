@@ -45,17 +45,6 @@ function App() {
         </ButtonSelectGroup>
       </Header>
       <main className="flex bg-gray-200">
-        <div className="flex-grow flex justify-center p-6">
-          {view === "fretboard" && <Fretboard />}
-          {view === "data" && (
-            <div
-              className="text-gray-800"
-              dangerouslySetInnerHTML={{
-                __html: ff.getTable(ff.fretGuitar(ff.getGuitar()))
-              }}
-            ></div>
-          )}
-        </div>
         <div
           className="config p-4"
           style={{ minWidth: "430px", width: "430px" }}
@@ -812,6 +801,17 @@ function App() {
               </ConfigGroup>
             )}
           </form>
+        </div>
+        <div className="flex-grow flex justify-center p-6">
+          {view === "fretboard" && <Fretboard />}
+          {view === "data" && (
+            <div
+              className="text-gray-800"
+              dangerouslySetInnerHTML={{
+                __html: ff.getTable(ff.fretGuitar(ff.getGuitar()))
+              }}
+            ></div>
+          )}
         </div>
       </main>
     </div>
