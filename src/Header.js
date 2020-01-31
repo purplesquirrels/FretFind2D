@@ -1,6 +1,8 @@
 import React from "react";
 import Popover from "./Popover";
+import ExportUI from "./ExportUI";
 import SaveUI from "./SaveUI";
+import LoadUI from "./LoadUI";
 
 export default function Header({ children }) {
   return (
@@ -69,6 +71,18 @@ export default function Header({ children }) {
         <Popover
           position={"bottom"}
           noPadding={true}
+          // maxWidth={"500px"}
+          triggerElement={
+            <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-red-600 border-red-600 hover:border-transparent hover:text-white hover:bg-red-600 mt-4 lg:mt-0">
+              Load
+            </button>
+          }
+        >
+          <LoadUI />
+        </Popover>
+        <Popover
+          position={"bottom"}
+          noPadding={true}
           triggerElement={
             <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-red-600 border-red-600 hover:border-transparent hover:text-white hover:bg-red-600 mt-4 lg:mt-0">
               Save
@@ -76,6 +90,17 @@ export default function Header({ children }) {
           }
         >
           <SaveUI />
+        </Popover>
+        <Popover
+          position={"bottom"}
+          noPadding={true}
+          triggerElement={
+            <button className="inline-block text-sm px-4 py-2 leading-none border rounded text-red-600 border-red-600 hover:border-transparent hover:text-white hover:bg-red-600 mt-4 lg:mt-0">
+              Export
+            </button>
+          }
+        >
+          <ExportUI />
         </Popover>
       </div>
     </nav>

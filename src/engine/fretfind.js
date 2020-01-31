@@ -1298,7 +1298,11 @@ var getLink = function() {
 };
 
 var setConfig = function(key, value) {
-  config = { ...config, [key]: value };
+  if (typeof key === "object") {
+    config = { ...config, ...key };
+  } else {
+    config = { ...config, [key]: value };
+  }
 
   subscribers.forEach(cb => cb(config));
 

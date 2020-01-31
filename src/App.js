@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import logo from "./images/help-24px.svg";
 // import "./App.css";
@@ -21,6 +21,15 @@ function App() {
   function updateConfig(key, value) {
     setConfig(ff.setConfig(key, value));
   }
+  function updateConfigObj(obj) {
+    setConfig(obj);
+  }
+
+  useEffect(() => {
+    ff.subscribe(state => {
+      updateConfigObj(state);
+    });
+  }, [config]);
 
   return (
     <div className="App text-gray-200" style={{ paddingTop: "64px" }}>

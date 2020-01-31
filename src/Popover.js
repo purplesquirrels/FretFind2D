@@ -5,7 +5,8 @@ export default function Popover({
   triggerElement,
   position = "right",
   children = null,
-  noPadding = false
+  noPadding = false,
+  maxWidth = "400px"
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -45,7 +46,7 @@ export default function Popover({
               "bg-gray-800 text-gray-500 text-sm rounded shadow-2xl" +
               (noPadding ? "" : " p-4")
             }
-            style={{ maxWidth: "400px" }}
+            style={{ maxWidth }}
           >
             {children}
           </div>
